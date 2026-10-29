@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
-import Navbar from './Navbar';
 
 function CartItem({ onNavigate }) {
   const dispatch = useDispatch();
@@ -22,11 +21,30 @@ function CartItem({ onNavigate }) {
     }
   };
 
+  const go = (e, page) => {
+    e.preventDefault();
+    onNavigate(page);
+  };
+
   const handleDelete = (item) => dispatch(removeItem(item.name));
 
   return (
     <div className="page">
-      <Navbar onNavigate={onNavigate} />
+      <div className="navbar">
+        <div className="navbar-brand" onClick={() => onNavigate('home')}>Paradise Nursery</div>
+        <div className="navbar-links">
+          <a href="#home" onClick={(e) => go(e, 'home')}>Home</a>
+          <a href="#plants" onClick={(e) => go(e, 'plants')}>Plants</a>
+          <a href="#cart" onClick={(e) => go(e, 'cart')} className="cart-link" aria-label="Cart">
+            <svg viewBox="0 0 256 256" width="34" height="34" aria-hidden="true">
+              <circle cx="80" cy="216" r="12" fill="currentColor" />
+              <circle cx="184" cy="216" r="12" fill="currentColor" />
+              <path d="M42.3 72H221.7l-26.4 92.4A15.9 15.9 0 0 1 180 176H84.1a16 16 0 0 1-15.4-11.6L32.5 37.8A8 8 0 0 0 24.8 32H8" fill="none" stroke="currentColor" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="cart-count">{totalPlants}</span>
+          </a>
+        </div>
+      </div>
       <main className="cart-container">
         <h2 className="cart-heading">Your shopping cart</h2>
         <p className="cart-summary">Total plants: <strong>{totalPlants}</strong></p>

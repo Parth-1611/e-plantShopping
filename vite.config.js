@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react';
 // base must match your GitHub repository name for GitHub Pages
 export default defineConfig({
   plugins: [react()],
-  base: '/paradise-nursery/',
+  base: '/e-plantShopping/',
 });

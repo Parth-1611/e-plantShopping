@@ -1,4 +1,4 @@
-# Paradise Nursery
+# Paradise Nursery (e-plantShopping)
 
 Paradise Nursery is a front-end shopping application for houseplants, built with React and Redux Toolkit.
 

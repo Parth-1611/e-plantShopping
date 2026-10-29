@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
-import Navbar from './Navbar';
+
 
 // Placeholder thumbnails. Replace the image URLs with your own plant photos if you like.
 const img = (label, color) =>
@@ -47,16 +47,47 @@ function ProductList({ onNavigate }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
-  const isInCart = (name) => cartItems.some((item) => item.name === name);
+  // Tracks which plants have been added; starts from what is already in the cart
+  const [addedToCart, setAddedToCart] = useState(() =>
+    Object.fromEntries(cartItems.map((item) => [item.name, true]))
+  );
+
+  const calculateTotalQuantity = () =>
+    cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const handleAddToCart = (plant) => {
+    dispatch(addItem({ name: plant.name, image: plant.image, cost: plant.cost }));
+    setAddedToCart((prev) => ({ ...prev, [plant.name]: true }));
+  };
+
+  const go = (e, page) => {
+    e.preventDefault();
+    onNavigate(page);
+  };
 
   return (
     <div className="page">
-      <Navbar onNavigate={onNavigate} />
+      <div className="navbar">
+        <div className="navbar-brand" onClick={() => onNavigate('home')}>Paradise Nursery</div>
+        <div className="navbar-links">
+          <a href="#home" onClick={(e) => go(e, 'home')}>Home</a>
+          <a href="#plants" onClick={(e) => go(e, 'plants')}>Plants</a>
+          <a href="#cart" onClick={(e) => go(e, 'cart')} className="cart-link" aria-label="Cart">
+            <svg viewBox="0 0 256 256" width="34" height="34" aria-hidden="true">
+              <circle cx="80" cy="216" r="12" fill="currentColor" />
+              <circle cx="184" cy="216" r="12" fill="currentColor" />
+              <path d="M42.3 72H221.7l-26.4 92.4A15.9 15.9 0 0 1 180 176H84.1a16 16 0 0 1-15.4-11.6L32.5 37.8A8 8 0 0 0 24.8 32H8" fill="none" stroke="currentColor" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="cart-count">{calculateTotalQuantity()}</span>
+          </a>
+        </div>
+      </div>
+
       <main className="product-grid-container">
         {plantsArray.map((group) => (
           <section key={group.category} className="category">
             <h2 className="category-title">{group.category}</h2>
-            <div className="product-grid">
+            <div className="product-list">
               {group.plants.map((plant) => (
                 <div className="product-card" key={plant.name}>
                   <img className="product-image" src={plant.image} alt={plant.name} />
@@ -65,12 +96,10 @@ function ProductList({ onNavigate }) {
                   <p className="product-price">${plant.cost}</p>
                   <button
                     className="product-button"
-                    disabled={isInCart(plant.name)}
-                    onClick={() =>
-                      dispatch(addItem({ name: plant.name, image: plant.image, cost: plant.cost }))
-                    }
+                    disabled={addedToCart[plant.name]}
+                    onClick={() => handleAddToCart(plant)}
                   >
-                    {isInCart(plant.name) ? 'Added to Cart' : 'Add to Cart'}
+                    {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
                   </button>
                 </div>
               ))}

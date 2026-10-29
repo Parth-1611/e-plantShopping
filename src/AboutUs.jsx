@@ -3,13 +3,15 @@ import React from 'react';
 function AboutUs() {
   return (
     <div className="about-us">
-      <h2>Who we are</h2>
+      <h2>About Paradise Nursery</h2>
       <p>
-        Paradise Nursery grows and ships healthy houseplants for every kind of home.
-        Our team hand-picks each plant, from air-purifying greens to fragrant herbs and
-        low-light survivors, so you can bring a little calm indoors. Whether you are
-        starting your first collection or adding to a full shelf, we are here to help
-        your space feel alive.
+        Paradise Nursery is an online houseplant shop that grows and ships healthy,
+        hand-picked plants to homes and offices.
+      </p>
+      <p>
+        Our mission is to bring greenery into everyday life. We offer air-purifying
+        plants, fragrant herbs and low-light varieties, along with simple care tips
+        so every plant you buy has the best chance to thrive.
       </p>
     </div>
   );

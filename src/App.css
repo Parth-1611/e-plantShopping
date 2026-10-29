@@ -20,7 +20,7 @@ button { font-family: inherit; cursor: pointer; }
 button:focus-visible, a:focus-visible { outline: 3px solid #f2b84b; outline-offset: 2px; }
 
 /* ---------- Landing page (background image lives here) ---------- */
-.landing-page {
+.background-image {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -42,7 +42,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid #f2b84b; outline-offs
 
 .landing-content h1 { font-size: clamp(2.6rem, 8vw, 4.5rem); margin: 0 0 16px; letter-spacing: -0.02em; }
 .about-us h2 { margin: 0 0 8px; font-size: 1.3rem; font-weight: 600; }
-.about-us p { font-size: 1.1rem; line-height: 1.7; margin: 0 0 28px; }
+.about-us p { font-size: 1.1rem; line-height: 1.7; margin: 0 0 14px; }
+.about-us { margin-bottom: 14px; }
 
 .get-started-button {
   background: #f2b84b;
@@ -92,7 +93,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid #f2b84b; outline-offs
   border-bottom: 2px solid var(--moss);
   color: var(--forest);
 }
-.product-grid {
+.product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
